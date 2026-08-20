@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SSMA — Secure Stream Messaging API</title>
+<meta name="description" content="SSMA is a low-latency streaming messaging API for developers. Pub/sub, presence, and replay in one SDK." />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui'],
+          mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+        },
+        colors: {
+          brand: {
+            50:  '#eef2ff',
+            500: '#6366f1',
+            600: '#4f46e5',
+            700: '#4338ca',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', ui-sans-serif, system-ui; }
+  .grid-bg {
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(99,102,241,0.18), transparent 60%),
+      linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 100% 100%, 40px 40px, 40px 40px;
+  }
+  pre, code { font-family: 'JetBrains Mono', ui-monospace, monospace; }
+</style>
+</head>
+<body class="bg-slate-950 text-slate-100 antialiased">
+
+<header class="sticky top-0 z-40 backdrop-blur bg-slate-950/70 border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2">
+      <span class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 to-fuchsia-500 font-bold">S</span>
+      <span class="font-semibold tracking-tight">SSMA</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8 text-sm text-slate-300">
+      <a href="#features" class="hover:text-white">Features</a>
+      <a href="#code" class="hover:text-white">Docs</a>
+      <a href="#pricing" class="hover:text-white">Pricing</a>
+      <a href="#" class="hover:text-white">Changelog</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="#" class="hidden sm:inline text-sm text-slate-300 hover:text-white">Sign in</a>
+      <a href="#pricing" class="inline-flex items-center rounded-lg bg-white text-slate-900 px-3.5 py-2 text-sm font-semibold hover:bg-slate-200">Start free</a>
+    </div>
+  </div>
+</header>
+
+<section class="grid-bg border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 pt-20 pb-24 text-center">
+    <a href="#" class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300 mb-6">
+      <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+      v2.4 — Edge replay is now GA
+    </a>
+    <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight leading-[1.05]">
+      Realtime messaging,<br />
+      <span class="bg-gradient-to-r from-brand-500 via-fuchsia-400 to-pink-400 bg-clip-text text-transparent">without the plumbing.</span>
+    </h1>
+    <p class="mt-6 max-w-2xl mx-auto text-lg text-slate-300">
+      SSMA is a globally distributed pub/sub API for developers. Ship presence, chat, live cursors, and event streams in minutes — with sub-100ms delivery worldwide.
+    </p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="#pricing" class="inline-flex items-center rounded-lg bg-brand-600 hover:bg-brand-700 px-5 py-3 text-sm font-semibold">
+        Get an API key
+      </a>
+      <a href="#code" class="inline-flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 hover:bg-white/10 px-5 py-3 text-sm font-semibold">
+        <span class="text-slate-400">$</span> npm i @ssma/client
+      </a>
+    </div>
+    <p class="mt-6 text-xs text-slate-500">No credit card required · 1M messages/mo on the free tier</p>
+  </div>
+</section>
+
+<section class="border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-10">
+    <p class="text-center text-xs uppercase tracking-widest text-slate-500 mb-6">Trusted by teams shipping realtime at scale</p>
+    <div class="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-slate-400 font-semibold">
+      <span>Northwind</span>
+      <span>Acme Corp</span>
+      <span>Lumen Labs</span>
+      <span>Helio</span>
+      <span>Kestrel</span>
+      <span>Vaultline</span>
+    </div>
+  </div>
+</section>
+
+<section id="features" class="border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-24">
+    <div class="max-w-2xl">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Everything you need for realtime.</h2>
+      <p class="mt-4 text-slate-300">One SDK, every primitive. Stop stitching together WebSockets, Redis, and queues.</p>
+    </div>
+
+    <div class="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">⚡</div>
+        <h3 class="mt-4 font-semibold">Sub-100ms delivery</h3>
+        <p class="mt-2 text-sm text-slate-400">25+ edge regions. Messages route through the closest POP to both publisher and subscriber.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">↺</div>
+        <h3 class="mt-4 font-semibold">Replay & history</h3>
+        <p class="mt-2 text-sm text-slate-400">Late-joining clients catch up automatically. Configurable retention from 1 hour to 30 days.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">◉</div>
+        <h3 class="mt-4 font-semibold">Presence</h3>
+        <p class="mt-2 text-sm text-slate-400">Track who's online per channel with built-in heartbeats and join/leave events.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">🔒</div>
+        <h3 class="mt-4 font-semibold">End-to-end auth</h3>
+        <p class="mt-2 text-sm text-slate-400">JWT-scoped channels, per-token rate limits, and audit logs out of the box.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">⇄</div>
+        <h3 class="mt-4 font-semibold">Webhooks & bridges</h3>
+        <p class="mt-2 text-sm text-slate-400">Fan out events to Kafka, SQS, HTTP endpoints, or your own functions.</p>
+      </div>
+      <div class="rounded-xl border border-white/10 bg-white/[0.03] p-6 hover:bg-white/[0.06] transition">
+        <div class="h-9 w-9 rounded-lg bg-brand-500/15 text-brand-500 flex items-center justify-center font-semibold">{}</div>
+        <h3 class="mt-4 font-semibold">SDKs everywhere</h3>
+        <p class="mt-2 text-sm text-slate-400">TypeScript, Python, Go, Swift, Kotlin, Rust. Native bindings, no polling fallbacks.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="code" class="border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-24 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">From <code class="text-brand-500">npm install</code> to live in 30 seconds.</h2>
+      <p class="mt-4 text-slate-300">No infrastructure to provision. No connection limits to negotiate. Subscribe to a channel and start receiving events.</p>
+      <ul class="mt-6 space-y-3 text-sm text-slate-300">
+        <li class="flex gap-2"><span class="text-emerald-400">✓</span> Automatic reconnection with exponential backoff</li>
+        <li class="flex gap-2"><span class="text-emerald-400">✓</span> At-least-once delivery with dedup tokens</li>
+        <li class="flex gap-2"><span class="text-emerald-400">✓</span> Typed payloads via generics</li>
+        <li class="flex gap-2"><span class="text-emerald-400">✓</span> Works in browsers, edge runtimes, and Node</li>
+      </ul>
+    </div>
+
+    <div class="rounded-xl border border-white/10 bg-slate-900/80 overflow-hidden shadow-2xl shadow-brand-500/10">
+      <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-white/[0.03]">
+        <span class="h-3 w-3 rounded-full bg-red-500/70"></span>
+        <span class="h-3 w-3 rounded-full bg-yellow-500/70"></span>
+        <span class="h-3 w-3 rounded-full bg-green-500/70"></span>
+        <span class="ml-3 text-xs text-slate-400">subscribe.ts</span>
+      </div>
+<pre class="px-5 py-4 text-sm leading-6 overflow-x-auto"><code><span class="text-fuchsia-400">import</span> { <span class="text-sky-300">Ssma</span> } <span class="text-fuchsia-400">from</span> <span class="text-emerald-300">"@ssma/client"</span>;
+
+<span class="text-fuchsia-400">const</span> <span class="text-sky-300">ssma</span> = <span class="text-fuchsia-400">new</span> <span class="text-sky-300">Ssma</span>({ <span class="text-amber-300">apiKey</span>: process.env.<span class="text-amber-300">SSMA_KEY</span>! });
+
+<span class="text-fuchsia-400">await</span> <span class="text-sky-300">ssma</span>
+  .channel(<span class="text-emerald-300">"orders:live"</span>)
+  .subscribe&lt;<span class="text-amber-300">Order</span>&gt;((<span class="text-amber-300">msg</span>) =&gt; {
+    console.log(<span class="text-emerald-300">"new order"</span>, <span class="text-amber-300">msg</span>.data.id);
+  });
+
+<span class="text-slate-500">// publish from anywhere</span>
+<span class="text-fuchsia-400">await</span> <span class="text-sky-300">ssma</span>.channel(<span class="text-emerald-300">"orders:live"</span>).publish({
+  <span class="text-amber-300">id</span>: <span class="text-emerald-300">"ord_42"</span>,
+  <span class="text-amber-300">total</span>: <span class="text-orange-300">129.00</span>,
+});</code></pre>
+    </div>
+  </div>
+</section>
+
+<section class="border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-20 grid sm:grid-cols-3 gap-8 text-center">
+    <div>
+      <div class="text-4xl font-bold bg-gradient-to-r from-brand-500 to-fuchsia-400 bg-clip-text text-transparent">99.99%</div>
+      <p class="mt-2 text-sm text-slate-400">Uptime SLA across all paid tiers</p>
+    </div>
+    <div>
+      <div class="text-4xl font-bold bg-gradient-to-r from-brand-500 to-fuchsia-400 bg-clip-text text-transparent">25+</div>
+      <p class="mt-2 text-sm text-slate-400">Edge regions, on six continents</p>
+    </div>
+    <div>
+      <div class="text-4xl font-bold bg-gradient-to-r from-brand-500 to-fuchsia-400 bg-clip-text text-transparent">12B+</div>
+      <p class="mt-2 text-sm text-slate-400">Messages delivered every day</p>
+    </div>
+  </div>
+</section>
+
+<section id="pricing" class="border-b border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-24">
+    <div class="text-center max-w-2xl mx-auto">
+      <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Pricing that scales with you.</h2>
+      <p class="mt-4 text-slate-300">Start free, pay only when your app takes off.</p>
+    </div>
+
+    <div class="mt-12 grid md:grid-cols-3 gap-5">
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+        <h3 class="font-semibold">Hobby</h3>
+        <p class="mt-1 text-sm text-slate-400">For side projects and prototypes.</p>
+        <div class="mt-6 text-4xl font-bold">$0</div>
+        <p class="text-xs text-slate-500">Forever free</p>
+        <a href="#" class="mt-6 block text-center rounded-lg border border-white/10 hover:bg-white/5 px-4 py-2.5 text-sm font-semibold">Start free</a>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300">
+          <li>1M messages / month</li>
+          <li>100 concurrent connections</li>
+          <li>1 hour replay window</li>
+          <li>Community support</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-brand-500/40 bg-gradient-to-b from-brand-500/10 to-transparent p-7 relative">
+        <span class="absolute -top-3 right-6 rounded-full bg-brand-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider">Most popular</span>
+        <h3 class="font-semibold">Pro</h3>
+        <p class="mt-1 text-sm text-slate-400">For production workloads.</p>
+        <div class="mt-6 text-4xl font-bold">$49<span class="text-base font-medium text-slate-400">/mo</span></div>
+        <p class="text-xs text-slate-500">+ usage</p>
+        <a href="#" class="mt-6 block text-center rounded-lg bg-brand-600 hover:bg-brand-700 px-4 py-2.5 text-sm font-semibold">Start 14-day trial</a>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300">
+          <li>50M messages included</li>
+          <li>10k concurrent connections</li>
+          <li>7-day replay window</li>
+          <li>Webhooks & bridges</li>
+          <li>Email support</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-white/10 bg-white/[0.03] p-7">
+        <h3 class="font-semibold">Enterprise</h3>
+        <p class="mt-1 text-sm text-slate-400">For teams with custom needs.</p>
+        <div class="mt-6 text-4xl font-bold">Custom</div>
+        <p class="text-xs text-slate-500">Let's talk</p>
+        <a href="#" class="mt-6 block text-center rounded-lg border border-white/10 hover:bg-white/5 px-4 py-2.5 text-sm font-semibold">Contact sales</a>
+        <ul class="mt-6 space-y-2 text-sm text-slate-300">
+          <li>Unlimited messages</li>
+          <li>Dedicated clusters</li>
+          <li>30-day replay window</li>
+          <li>SOC 2 + HIPAA</li>
+          <li>24/7 priority support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+    <h2 class="text-3xl sm:text-4xl font-bold tracking-tight">Ship realtime in your next sprint.</h2>
+    <p class="mt-4 text-slate-300">Spin up a free workspace and send your first message in under a minute.</p>
+    <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
+      <a href="#" class="inline-flex items-center rounded-lg bg-white text-slate-900 px-5 py-3 text-sm font-semibold hover:bg-slate-200">Create free account</a>
+      <a href="#" class="inline-flex items-center rounded-lg border border-white/15 hover:bg-white/5 px-5 py-3 text-sm font-semibold">Read the docs →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="border-t border-white/5">
+  <div class="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row gap-6 items-center justify-between text-sm text-slate-400">
+    <div class="flex items-center gap-2">
+      <span class="inline-flex h-7 w-7 items-center justify-center rounded-md bg-gradient-to-br from-brand-500 to-fuchsia-500 text-white font-bold text-xs">S</span>
+      <span>© 2026 SSMA Labs, Inc.</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="#" class="hover:text-white">Privacy</a>
+      <a href="#" class="hover:text-white">Terms</a>
+      <a href="#" class="hover:text-white">Status</a>
+      <a href="#" class="hover:text-white">Twitter</a>
+      <a href="#" class="hover:text-white">GitHub</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
